@@ -292,6 +292,43 @@ class REST:
         )
         return response.json()[symbol]
 
+    def symbol_search(self, symbol: str, secType: str) -> dict:
+        """Get information about symbol
+
+        :param  symbol: name of symbol
+        :type accountId: str
+        :return: Response from the server
+        :rtype: dict
+        """
+        data = {"symbol": symbol,"name": true,"secType": secType}
+        response = requests.post(
+            self.url + "iserver/secdef/search", json=data, verify=self.ssl
+        )
+        return response.json()
+
+
+    def get_strikes(self, conid: str, secType: str, month: str, exchange = "SMART") -> dict:
+        """Get information about symbol's strikes
+        :param conid: contract id of the underlying contract
+        :type conid: string
+
+        :param sectype:  OPT/WAR
+        :type sectype: str
+
+        :parm month: contract month
+        :type month: str 
+
+        :param exchange: optional, default is SMART
+
+        :rtype: dict
+        """
+        query = {"conid": conid, "secType": secType, "month": month, "exchange":exchange }
+        response = requests.get(
+            self.url + "iserver/secdef/strikes", params=query, verify=self.ssl
+        )
+        return response.json()
+
+
 
 if __name__ == "__main__":
 
