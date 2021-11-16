@@ -300,7 +300,7 @@ class REST:
         :return: Response from the server
         :rtype: dict
         """
-        data = {"symbol": symbol,"name": true, "secType": secType}
+        data = {"symbol": symbol,"name": True, "secType": secType}
         response = requests.post(
             self.url + "iserver/secdef/search", json=data, verify=self.ssl
         )
